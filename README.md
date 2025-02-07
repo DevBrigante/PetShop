@@ -11,7 +11,7 @@ O **ShopDogs** é uma aplicação web construída com **React** e **TypeScript**
 ## Acesse o ShopDogs online
 
 Clique no link abaixo para acessar o projeto:
-**[ShopDogs - Acesse aqui](https://seulink-deploy.com)**
+**[ShopDogs - Acesse aqui](https://shop-dogs-umber.vercel.app/)**
 
 ---
 

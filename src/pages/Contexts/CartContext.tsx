@@ -4,7 +4,7 @@ import { ProdutosProps } from '../Home/index'
 interface CartContextDataProps{
     cart: CartProps[];
     quantidadeTotal: number;
-    total: string | number;
+    total: string;
     AdicionarCarrinho: (newItem: ProdutosProps) => void;
     handleRemove: (product: CartProps) => void;
     handleDelete: () => void;
@@ -26,7 +26,7 @@ interface CartProviderProps{
 
 
 
-export const CartContext = createContext({} as CartContextDataProps)
+export const CartContext = createContext<CartContextDataProps>({} as CartContextDataProps)
 
 
 function CartProvider({children}: CartProviderProps){
@@ -40,7 +40,7 @@ function CartProvider({children}: CartProviderProps){
         if(indexEncontrado !== -1){
             const cartList = cart;
 
-            cartList[indexEncontrado].quantidade = cartList[indexEncontrado].quantidade + 1;
+            cartList[indexEncontrado].quantidade += 1;
             cartList[indexEncontrado].total = cartList[indexEncontrado].quantidade * cartList[indexEncontrado].price;
 
 
@@ -55,35 +55,35 @@ function CartProvider({children}: CartProviderProps){
             total: newItem.price
         }
 
-        SetCart(products => [...products, notExist])
+        SetCart((products) => [...products, notExist])
         totalResultCart([...cart, notExist])
 
     }
 
     function totalResultCart(items:CartProps[]){
-        
-        const myCart = items
-        const result = myCart.reduce((acumulador, item)=>{
-            return acumulador + item.total
+
+        const result = items.reduce((acumulador, itemAtual)=>{
+            return acumulador + itemAtual.total
+
         }, 0)
 
-        const formatedPrice = result.toLocaleString("pt-BR", {
+        const formated = result.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL"
         })
 
-        setTotal(formatedPrice)
+        setTotal(formated)
     }
 
 
     function handleRemove(product: CartProps){
-        const encontrandoIndex = cart.findIndex(item => item.id === product.id)
+        const indexEncontrado = cart.findIndex(item => item.id === product.id)
 
-        if(cart[encontrandoIndex].quantidade > 1){
+        if(cart[indexEncontrado].quantidade > 1){
             const cartList = cart;
 
-            cartList[encontrandoIndex].quantidade = cartList[encontrandoIndex].quantidade - 1;
-            cartList[encontrandoIndex].total =  cartList[encontrandoIndex].total - cartList[encontrandoIndex].price;
+            cartList[indexEncontrado].quantidade -= 1;
+            cartList[indexEncontrado].total -= cartList[indexEncontrado].price;
 
             SetCart(cartList)
             totalResultCart(cartList)
@@ -98,6 +98,7 @@ function CartProvider({children}: CartProviderProps){
 
     function handleDelete(){
         SetCart([])
+        setTotal("")
     }
 
     return(

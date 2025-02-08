@@ -31,20 +31,21 @@ export const CartContext = createContext<CartContextDataProps>({} as CartContext
 
 function CartProvider({children}: CartProviderProps){
 
-    const [cart, SetCart] = useState<CartProps[]>([])
+    const [cart, setCart] = useState<CartProps[]>([])
     const [total, setTotal] = useState("")
 
     function AdicionarCarrinho(newItem: ProdutosProps){
         const indexEncontrado = cart.findIndex(item => item.id === newItem.id)
 
         if(indexEncontrado !== -1){
-            const cartList = cart;
 
-            cartList[indexEncontrado].quantidade += 1;
-            cartList[indexEncontrado].total = cartList[indexEncontrado].quantidade * cartList[indexEncontrado].price;
+            const cartList = [...cart];
+            cartList[indexEncontrado].quantidade +=1
+            cartList[indexEncontrado].total = cartList[indexEncontrado].quantidade * cartList[indexEncontrado].price
 
 
-            SetCart(cartList)
+
+            setCart(cartList)
             totalResultCart(cartList)
             return;
         }
@@ -55,7 +56,7 @@ function CartProvider({children}: CartProviderProps){
             total: newItem.price
         }
 
-        SetCart((products) => [...products, notExist])
+        setCart((products) => [...products, notExist])
         totalResultCart([...cart, notExist])
 
     }
@@ -80,24 +81,24 @@ function CartProvider({children}: CartProviderProps){
         const indexEncontrado = cart.findIndex(item => item.id === product.id)
 
         if(cart[indexEncontrado].quantidade > 1){
-            const cartList = cart;
+            const cartList = [...cart]
 
             cartList[indexEncontrado].quantidade -= 1;
             cartList[indexEncontrado].total -= cartList[indexEncontrado].price;
 
-            SetCart(cartList)
+            setCart(cartList)
             totalResultCart(cartList)
             return;
         }
 
         const removeItem = cart.filter(item => item.id !== product.id)
-        SetCart(removeItem)
+        setCart(removeItem)
         totalResultCart(removeItem)
         
     }
 
     function handleDelete(){
-        SetCart([])
+        setCart([])
         setTotal("")
     }
 

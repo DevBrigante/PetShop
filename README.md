@@ -8,6 +8,12 @@ O **ShopDogs** é uma aplicação web construída com **React** e **TypeScript**
 
 ---
 
+## ⚠️ Aviso Importante
+
+> **Este projeto depende do consumo de uma API simulada com `JSON Server`. Certifique-se de seguir as instruções para configurar e rodar o servidor localmente com o arquivo `db.json`, utilizando a porta `3001`. Sem isso, o site não funcionará corretamente.**
+
+---
+
 ## Acesse o ShopDogs online
 
 Clique no link abaixo para acessar o projeto:
@@ -33,4 +39,28 @@ Clique no link abaixo para acessar o projeto:
 - **React Hooks**: Utilização de `useState`, `useEffect`, e outros hooks.
 - **JSON Server**: API simulada para manipulação de dados.
 
+---
+
+## 🔄 Configurando o Projeto e Consumindo a API
+
+1. **Clone este repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/shopdogs.git
+
+2. **Navegue até o diretório do projeto:**
+    ```bash
+    cd shopdgos
+
+3. **Instale as dependências:**
+    ```bash
+    npm install
+
+4. **Configure o JSON Server:**
+    ```bash
+    npm install -g json-server
+    json-server --watch db.json
+
+5. **Inicie o projeto:**
+    ```bash
+    npm run dev
 
